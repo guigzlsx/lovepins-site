@@ -1,0 +1,28 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face { font-family: 'Fraunces'; src: url('../public/fonts/fraunces-var.woff2') format('woff2'); font-weight: 300 800; }
+@font-face { font-family: 'Caveat'; src: url('../public/fonts/caveat-500.woff2') format('woff2'); font-weight: 500; }
+html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+body { background: #F6EFE3; color: #2B2A33; font-family: -apple-system, 'Helvetica Neue', sans-serif; position: relative; }
+.copy { position: absolute; left: 72px; top: 96px; width: 600px; z-index: 3; }
+.brand { display: flex; align-items: center; gap: 16px; font-family: 'Fraunces'; font-weight: 600; font-size: 38px; }
+.brand img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 2px 6px rgba(43,42,51,.12); }
+.note { font-family: 'Caveat'; font-size: 40px; color: #B3462F; transform: rotate(-3deg); margin: 70px 0 4px; }
+h1 { font-family: 'Fraunces'; font-weight: 600; font-size: 70px; line-height: 1.05; letter-spacing: -1px; margin: 0; }
+.sub { font-size: 26px; color: #6B6460; margin-top: 22px; }
+.phone { position: absolute; width: 300px; border-radius: 46px; padding: 9px; background: #1d1c22; box-shadow: 0 40px 70px -24px rgba(43,42,51,.45); }
+.phone img { width: 100%; border-radius: 38px; display: block; }
+.p1 { right: 190px; top: 60px; transform: rotate(-4deg); z-index: 2; }
+.p2 { right: -20px; top: 150px; width: 270px; transform: rotate(6deg); }
+</style></head>
+<body>
+  <div class="copy">
+    <div class="brand"><img src="../public/apple-touch-icon.png"><span>Lovepins</span></div>
+    <div class="note">for the two of you ♥</div>
+    <h1>Your love story,<br>on one map.</h1>
+    <div class="sub">A private map for couples. Coming soon to iPhone.</div>
+  </div>
+  <div class="phone p2"><img src="../src/assets/screens/us-light.png"></div>
+  <div class="phone p1"><img src="../src/assets/screens/map-light.png"></div>
+</body></html>

@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Shot from '../components/Shot.astro';
+import Cta from '../components/Cta.astro';
+import { config } from '../config';
+import mapLight from '../assets/screens/map-light.png';
+import mapDark from '../assets/screens/map-dark.png';
+import usLight from '../assets/screens/us-light.png';
+import usDark from '../assets/screens/us-dark.png';
+import ideasLight from '../assets/screens/ideas-light.png';
+import ideasDark from '../assets/screens/ideas-dark.png';
+import journalLight from '../assets/screens/journal-light.png';
+import journalDark from '../assets/screens/journal-dark.png';
+
+const p = config.prices;
+const title = 'Lovepins: your love story, on one map';
+const description = 'A private map for couples. Pin every date, keep a wishlist of places to try, and get ideas for the next one. Coming soon to iPhone.';
+
+const faqs = [
+  {
+    q: 'Do we both need the app?',
+    a: `Not to get started. You can start on your own, pin your dates and build your wishlist, then invite your partner with a code whenever they're ready. Everything you pinned comes along. To share the map, each of you will need Lovepins on your iPhone.`,
+  },
+  {
+    q: 'Is there an Android version?',
+    a: `Not yet. Lovepins is iPhone-only for now (iOS 17 or later).`,
+  },
+  {
+    q: 'Is my data private?',
+    a: `Yes. Your pins, ratings and notes are visible only to you and your partner. No ads, no tracking, and we never sell your data. The details are in our <a href="/privacy.html">Privacy Policy</a>.`,
+  },
+  {
+    q: 'Where are my photos stored?',
+    a: `Photos you add to a pin stay on your iPhone. They are never uploaded, which also means your partner doesn't see them for now. The one exception is your profile photo: a small copy is stored on our servers so your partner can see it.`,
+  },
+  {
+    q: 'How do I cancel?',
+    a: `In two taps: iPhone Settings › your name › Subscriptions › Lovepins, or “Manage subscription” in the app's Us tab. Cancel during the ${p.trialDays}-day trial and you pay nothing.`,
+  },
+  {
+    q: 'Does one subscription cover both of us?',
+    a: `Yes. One of you subscribes, both of you get everything.`,
+  },
+];
+---
+<Layout title={title} description={description} path="/" sectionNav>
+    <!-- 1. Hero -->
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="note note-hero">for the two of you ♥</p>
+        <h1>Your love story,<br /> on one map.</h1>
+        <p class="lede">Pin every date you've shared, keep a wishlist of places to try, and never run out of ideas for the next one.</p>
+        <Cta id="hero" />
+      </div>
+      <div class="hero-art" aria-hidden="false">
+        <Shot class="phone-back" light={usLight} dark={usDark} alt="The Us tab: Alex and Sam, 709 days together since December 14, 2024, with their next anniversary in 21 days." sizes="(min-width: 960px) 240px, 42vw" widths={[200, 300, 480]} />
+        <Shot class="phone-front" eager light={mapLight} dark={mapDark} alt="The Lovepins map of New York with heart pins for memories, round stamps for the wishlist, and a “709 days together” counter." sizes="(min-width: 960px) 280px, 52vw" widths={[240, 360, 560]} />
+        <span class="stamp stamp-hero" aria-hidden="true">We did it!</span>
+      </div>
+    </section>
+
+    <!-- 2. How it works -->
+    <section id="how" class="how wrap">
+      <h2>How it works</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step-num" aria-hidden="true">1</span>
+          <h3>Pair with a code</h3>
+          <p>One of you shares a 6-letter code, the other types it in. Same map, both phones. Or start alone and invite your partner later.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">2</span>
+          <h3>Pin your dates</h3>
+          <p>Drop a heart where it happened: a title, the date, a rating, a few notes and photos.</p>
+        </li>
+        <li class="step">
+          <span class="step-num" aria-hidden="true">3</span>
+          <h3>Relive the memories</h3>
+          <p>Flip through your journal and get a gentle nudge on anniversaries and “one year ago today”.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 3. Features -->
+    <section class="features wrap" aria-labelledby="features-title">
+      <h2 id="features-title">Everything you share, in one place</h2>
+      <div class="feature-grid">
+        <article class="card card-tape feature feature-wide">
+          <div>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5Z M12 6v13.5"/></svg>
+            <h3>A journal of your dates</h3>
+            <p>Every memory as a polaroid, month by month, with your ratings and notes. Your story, in order.</p>
+          </div>
+          <Shot class="phone-small" light={journalLight} dark={journalDark} alt="The journal tab: memories as polaroids, grouped by month." sizes="(min-width: 960px) 200px, 40vw" widths={[160, 240, 400]} />
+        </article>
+        <article class="card feature">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-.4-.6-6-5.2-6-10a4 4 0 0 1 6-3.4A4 4 0 0 1 18 11c0 4.8-5.6 9.4-6 10Z"/></svg>
+          <h3>One map, two phones</h3>
+          <p>Add a pin on your phone and it shows up on theirs a second later. It works offline too, and catches up when you're back.</p>
+        </article>
+        <article class="card feature">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke-dasharray="2.2 2.2"/><path d="M12 8.5l1 2.5 2.5 1-2.5 1-1 2.5-1-2.5-2.5-1 2.5-1z"/></svg>
+          <h3>Wishlist → <span class="stamp-inline">We did it!</span></h3>
+          <p>Save the places you want to try. When you go, tap “We did it!” and it becomes a memory.</p>
+        </article>
+        <article class="card feature feature-wide feature-flip">
+          <Shot class="phone-small" light={ideasLight} dark={ideasDark} alt="The Ideas tab: idea of the day, places near you with budget filters, and your wishlist." sizes="(min-width: 960px) 200px, 40vw" widths={[160, 240, 400]} />
+          <div>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4l1.6 4.4L16 10l-4.4 1.6L10 16l-1.6-4.4L4 10l4.4-1.6zM18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z"/></svg>
+            <h3>“Surprise me”</h3>
+            <p>Out of ideas? One tap picks a real spot near you, filtered by budget, plus an idea of the day and places nearby. It won't keep suggesting the same thing.</p>
+          </div>
+        </article>
+        <article class="card feature feature-strip">
+          <div>
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14" rx="2"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4"/></svg>
+            <h3>Never miss an anniversary</h3>
+            <p>Your anniversary, 100 days, 1,000 days, one year ago today. We'll remind you a week before the big ones.</p>
+          </div>
+          <span class="stamp stamp-mustard" aria-hidden="true">1,000<br />days</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- 4. Made for two -->
+    <section class="two wrap" aria-labelledby="two-title">
+      <h2 id="two-title">Made for two. Only two.</h2>
+      <ul class="two-list">
+        <li><h3>One subscription, both of you</h3><p>One of you subscribes, both of you get everything.</p></li>
+        <li><h3>Private by design</h3><p>Only the two of you can see your map. No ads, no tracking, no selling your data.</p></li>
+        <li><h3>No feed, no strangers</h3><p>No followers, no likes, no public profiles. It's not social media. It's yours.</p></li>
+      </ul>
+    </section>
+
+    <!-- 5. Pricing -->
+    <section id="pricing" class="pricing wrap" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Honest pricing</h2>
+      <p class="lede">No surprise charges. Try everything free for {p.trialDays} days, get a reminder the day before your trial ends, and cancel in two taps.</p>
+      <div class="plans">
+        <div class="card plan plan-main">
+          <span class="stamp stamp-plan">{p.trialDays} days free</span>
+          <h3>Yearly</h3>
+          <p class="price"><strong>{p.yearly}</strong> / year</p>
+          <p class="muted">About {p.yearlyPerWeek} a week, after a {p.trialDays}-day free trial.</p>
+        </div>
+        <div class="card plan">
+          <h3>Weekly</h3>
+          <p class="price"><strong>{p.weekly}</strong> / week</p>
+          <p class="muted">No trial. Cancel anytime.</p>
+        </div>
+      </div>
+      <ol class="timeline" aria-label="How the free trial works">
+        <li><strong>Today</strong><span>Full access, free.</span></li>
+        <li><strong>Day {p.trialDays - 1}</strong><span>We remind you your trial ends tomorrow.</span></li>
+        <li><strong>Day {p.trialDays}</strong><span>Your yearly plan starts, unless you cancelled.</span></li>
+      </ol>
+      <p class="fine">One subscription covers both partners. Payment is handled by Apple; manage or cancel it anytime in your iPhone Settings.{p.provisional && !config.launched && ' Planned launch prices: the App Store always shows the final price before you pay.'}</p>
+    </section>
+
+    <!-- 6. FAQ -->
+    <section id="faq" class="faq wrap" aria-labelledby="faq-title">
+      <h2 id="faq-title">Questions</h2>
+      {faqs.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p set:html={f.a} />
+        </details>
+      ))}
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final wrap">
+      <div class="card card-tape final-card">
+        <h2>Start your map.</h2>
+        <p class="note">first pin: wherever you met</p>
+        <Cta id="final" />
+      </div>
+    </section>
+
+
+</Layout>

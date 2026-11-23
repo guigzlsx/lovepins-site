@@ -1,0 +1,41 @@
+---
+// A real app screenshot inside a phone frame. Light and dark captures follow the visitor's color scheme.
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  light: ImageMetadata;
+  dark: ImageMetadata;
+  alt: string;
+  sizes: string;
+  widths?: number[];
+  eager?: boolean;
+  class?: string;
+}
+const { light, dark, alt, sizes, widths = [240, 360, 540], eager = false, class: cls } = Astro.props;
+
+async function srcset(src: ImageMetadata, format: 'avif' | 'webp') {
+  const imgs = await Promise.all(widths.map((width) => getImage({ src, width, format })));
+  return imgs.map((img, i) => `${img.src} ${widths[i]}w`).join(', ');
+}
+const fallback = await getImage({ src: light, width: widths[1] ?? widths[0], format: 'webp' });
+const w = widths[1] ?? widths[0];
+const h = Math.round((w * light.height) / light.width);
+---
+<div class:list={['phone', cls]}>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" type="image/avif" srcset={await srcset(dark, 'avif')} sizes={sizes} />
+    <source media="(prefers-color-scheme: dark)" type="image/webp" srcset={await srcset(dark, 'webp')} sizes={sizes} />
+    <source type="image/avif" srcset={await srcset(light, 'avif')} sizes={sizes} />
+    <source type="image/webp" srcset={await srcset(light, 'webp')} sizes={sizes} />
+    <img
+      src={fallback.src}
+      width={w}
+      height={h}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+      decoding="async"
+    />
+  </picture>
+</div>

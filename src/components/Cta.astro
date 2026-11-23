@@ -1,0 +1,74 @@
+---
+// Waitlist form before launch, official App Store badge after. Toggled by config.launched.
+import { config, appStoreUrl } from '../config';
+interface Props { id: string }
+const { id } = Astro.props;
+---
+{config.launched ? (
+  <div class="cta">
+    <a class="store-badge" href={appStoreUrl}>
+      <img src="/badges/app-store-badge.svg" width="150" height="50" alt="Download on the App Store" />
+    </a>
+    <p class="cta-note">Free for {config.prices.trialDays} days, then {config.prices.yearly}/year. iPhone, iOS 17 or later.</p>
+  </div>
+) : (
+  <form class="cta waitlist" data-waitlist data-endpoint={`${config.supabaseUrl}/rest/v1/rpc/join_waitlist`} data-key={config.supabasePublishableKey} novalidate>
+    <div class="field-row">
+      <label class="sr-only" for={`email-${id}`}>Your email</label>
+      <input id={`email-${id}`} name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
+      <div class="hp" aria-hidden="true">
+        <label for={`company-${id}`}>Company</label>
+        <input id={`company-${id}`} name="company" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <button type="submit" class="btn btn-primary" data-submit>Join the waitlist</button>
+    </div>
+    <p class="cta-note" data-status role="status">Coming soon to iPhone. We'll email you once, on launch day. Nothing else.</p>
+  </form>
+)}
+
+<script>
+  // Waitlist: one call to the Supabase RPC public.join_waitlist (insert only, rate limited server-side).
+  const DONE = "You're on the list ♥ We'll email you once, the day Lovepins lands on the App Store. Nothing else.";
+  document.querySelectorAll<HTMLFormElement>('form[data-waitlist]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('[data-status]')!;
+    const button = form.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const email = form.elements.namedItem('email') as HTMLInputElement;
+    const hp = form.elements.namedItem('company') as HTMLInputElement;
+    const fail = (msg: string) => {
+      form.classList.add('is-error');
+      status.textContent = msg;
+      email.setAttribute('aria-invalid', 'true');
+      email.focus();
+    };
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      email.value = email.value.trim();
+      if (!email.value || !email.checkValidity()) return fail("That email doesn't look right. Mind checking it?");
+      form.classList.remove('is-error');
+      email.removeAttribute('aria-invalid');
+      button.disabled = true;
+      button.textContent = 'Adding you…';
+      try {
+        const res = await fetch(form.dataset.endpoint!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', apikey: form.dataset.key! },
+          body: JSON.stringify({ email: email.value, hp: hp.value || null }),
+        });
+        if (res.ok) {
+          form.classList.add('is-done');
+          status.textContent = DONE;
+          return;
+        }
+        const body = await res.json().catch(() => ({}));
+        if (body.message === 'invalid_email') fail("That email doesn't look right. Mind checking it?");
+        else if (body.message === 'rate_limited') fail('Too many tries for now. Please try again in an hour.');
+        else fail(`Something went wrong on our side. Please try again, or email us at hello@lovepins.app.`);
+      } catch {
+        fail('No connection, it seems. Please try again in a moment.');
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Join the waitlist';
+      }
+    });
+  });
+</script>
