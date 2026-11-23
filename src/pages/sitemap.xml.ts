@@ -1,6 +1,6 @@
 import { config } from '../config';
 
-const pages = ['/', '/support/', '/privacy.html'];
+const pages = ['/', '/support/', '/privacy'];
 
 export function GET() {
   const urls = pages.map((p) => `  <url><loc>${new URL(p, config.siteUrl).href}</loc></url>`).join('\n');

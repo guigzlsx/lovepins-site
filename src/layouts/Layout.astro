@@ -5,7 +5,7 @@ import { config } from '../config';
 interface Props {
   title: string;
   description: string;
-  /** Path of this page, e.g. "/" or "/privacy.html", for the canonical URL. */
+  /** Path of this page, e.g. "/" or "/privacy", for the canonical URL. */
   path: string;
   /** Landing page shows the section nav; legal pages don't. */
   sectionNav?: boolean;
@@ -63,7 +63,7 @@ const ogImage = new URL('/og.png', config.siteUrl).href;
     ) : (
       <nav aria-label="Main" class="nav-always">
         <a href="/support/">Support</a>
-        <a href="/privacy.html">Privacy</a>
+        <a href="/privacy">Privacy</a>
       </nav>
     )}
   </header>
@@ -74,7 +74,7 @@ const ogImage = new URL('/og.png', config.siteUrl).href;
 
   <footer class="foot wrap">
     <nav aria-label="Legal">
-      <a href="/privacy.html">Privacy</a>
+      <a href="/privacy">Privacy</a>
       <a href="/support/">Support</a>
       <a href={config.appleEulaUrl}>Terms of Use</a>
       <a href={`mailto:${config.contactEmail}`}>{config.contactEmail}</a>
