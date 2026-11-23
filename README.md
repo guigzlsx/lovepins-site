@@ -14,5 +14,5 @@ npm run build
 - **Pages:** `/` (landing), `/support/`, `/privacy.html` (path used by the app; keep the file name, Cloudflare serves it at `/privacy` and redirects `.html`).
 - **Waitlist:** the form calls the Supabase RPC `join_waitlist` with the public publishable key. The table is not readable from the site.
 - **Icons:** `node scripts/icons.mjs` regenerates favicons from `public/favicon.svg`.
-- **Old address:** `docs/` holds redirect stubs served by GitHub Pages so `guigzlsx.github.io/lovepins-site/` forwards to lovepins.app.
+- **Old address:** `docs/` holds redirect stubs served by GitHub Pages so `guigzlsx.github.io/lovepins-site/` forwards to lovepins-site.pages.dev (lovepins.app once the domain is live).
 - **Fonts:** Fraunces and Caveat, self-hosted, SIL Open Font License (`public/fonts/*-OFL.txt`).
